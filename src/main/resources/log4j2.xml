@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="carrera" monitorInterval="60" shutdownHook="disable" >
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ABSOLUTE} %5p %c{1}:%L - %m%n"/>
+        </Console>
+        <RollingFile name="CarreraAppender" fileName="logs/carrera.log"
+                     filePattern="logs/old/carrera-%d{yyyy-MM-dd-HH}.%i.log.gz">
+            <PatternLayout pattern="%d{DEFAULT} [ %p ] %c{1} - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="logs" maxDepth="2">
+                    <IfAny>
+                        <IfAccumulatedFileSize exceeds="500M"/>
+                        <IfLastModified age="7d"/>
+                    </IfAny>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="WarnAppender" fileName="logs/error.log"
+                     filePattern="logs/old/error-%d{yyyy-MM-dd}.%i.log">
+            <PatternLayout pattern="%d{DEFAULT} [ %p ] %c{1} - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="logs" maxDepth="2">
+                    <IfLastModified age="1d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="SwitchAppender" fileName="logs/switch.log"
+                     filePattern="logs/old/switch-%d{yyyy-MM-dd-HH}.%i.log">
+            <PatternLayout pattern="%d{DEFAULT} [ %p ] %c{1} - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="logs" maxDepth="2">
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="MetricAppender" fileName="logs/metric.log"
+                     filePattern="logs/old/metric-%d{yyyy-MM-dd-HH}.%i.log">
+            <PatternLayout pattern="%d{DEFAULT} [ %p ] %c{1} - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="logs" maxDepth="2">
+                    <IfLastModified age="1d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="BackupRestoreAppender" fileName="logs/backupRestore.log"
+                     filePattern="logs/old/backupRestore-%d{yyyy-MM-dd-HH}.%i.log">
+            <PatternLayout pattern="%d{DEFAULT} [ %p ] %c{1} - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="logs" maxDepth="2">
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="warn">
+            <AppenderRef ref="WarnAppender" level="WARN"/>
+        </Root>
+
+        <logger name="Schedule" level="INFO" additivity="false">
+            <AppenderRef ref="CarreraAppender"/>
+            <AppenderRef ref="WarnAppender" level="error"/>
+        </logger>
+        <logger name="SwitchLogger" level="INFO" additivity="false">
+            <AppenderRef ref="SwitchAppender"/>
+        </logger>
+        <logger name="MetricLogger" level="INFO" additivity="false">
+            <AppenderRef ref="MetricAppender"/>
+        </logger>
+        <logger name="BackupRestoreLogger" level="INFO" additivity="false">
+            <AppenderRef ref="BackupRestoreAppender"/>
+        </logger>
+        <logger name="com.xiaojukeji.carrera" level="INFO" additivity="false">
+            <AppenderRef ref="CarreraAppender"/>
+            <AppenderRef ref="WarnAppender" level="WARN"/>
+        </logger>
+    </Loggers>
+</Configuration>

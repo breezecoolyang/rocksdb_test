@@ -20,8 +20,8 @@ public class ScheduleStartup {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SCHEDULE_LOGGER_NAME);
     private String configFilePath = "schedule.yaml";
-    private int startCount = 10;
-    private int endCount = 20;
+    private int startCount = 10000;
+    private int endCount = 20000;
 
 
     ScheduleStartup(final String configFilePath) {
@@ -140,6 +140,7 @@ public class ScheduleStartup {
         count = 0;
         it = RDB.newIterator(cfHandle);
         now = "1324356525".getBytes();
+        start = System.currentTimeMillis();
         for (it.seek(now); it.isValid(); it.next()) {
 //            System.out.println(new String(it.key()) + " " + new String(it.value()));
             count++;

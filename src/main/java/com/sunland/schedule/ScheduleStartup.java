@@ -100,31 +100,42 @@ public class ScheduleStartup {
         WriteBatch wb = new WriteBatch();
         ColumnFamilyHandle cfHandle = CFManager.CFH_DEFAULT;
 
-        long st = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         for (int i = startCount; i < endCount; i++) {
             wb.put(cfHandle, ("1324356527-" + i + "-5-5-345-356-234-232").getBytes(), "tasdfasdgasdfestfordb".getBytes());
 
-//            if(i % 30 == 0) {
-//                RDB.writeAsync(wb);
-//                wb.clear();
-//            }
+            if(i % 30 == 0) {
+                RDB.writeAsync(wb);
+                wb.clear();
+            }
         }
+        long end = System.currentTimeMillis();
+        System.out.println("write cost : " + (end - start) + " count:" + (endCount - startCount));
+
+        start = System.currentTimeMillis();
         for (int i = startCount; i < endCount; i++) {
             wb.put(cfHandle, ("1324356525-" + i + "-5-5-345-356-234-232").getBytes(), "tasdfasdgasdfestfordb".getBytes());
 
-//            if(i % 30 == 0) {
-//                RDB.writeAsync(wb);
-//                wb.clear();
-//            }
+            if(i % 30 == 0) {
+                RDB.writeAsync(wb);
+                wb.clear();
+            }
         }
+        end = System.currentTimeMillis();
+        System.out.println("write cost : " + (end - start) + " count:" + (endCount - startCount));
+
+        start = System.currentTimeMillis();
         for (int i = startCount; i < endCount; i++) {
             wb.put(cfHandle, ("1324356529-" + i + "-5-5-345-356-234-232").getBytes(), "tasdfasdgasdfestfordb".getBytes());
 
-//            if(i % 30 == 0) {
-//                RDB.writeAsync(wb);
-//                wb.clear();
-//            }
+            if(i % 30 == 0) {
+                RDB.writeAsync(wb);
+                wb.clear();
+            }
         }
+        end = System.currentTimeMillis();
+        System.out.println("write cost : " + (end - start) + " count:" + (endCount - startCount));
+
         RDB.writeAsync(wb);
 
     }
@@ -144,7 +155,7 @@ public class ScheduleStartup {
         }
         it.close();
         long end = System.currentTimeMillis();
-        System.out.println("cost : " + (end - start) + " count:" + count);
+        System.out.println("read cost : " + (end - start) + " count:" + count);
 //        RDB.deleteFilesInRange(CFManager.CFH_DEFAULT, "132435653".getBytes(), "1324356529".getBytes());
 
         count = 0;
@@ -159,7 +170,7 @@ public class ScheduleStartup {
         }
         it.close();
         end = System.currentTimeMillis();
-        System.out.println("cost : " + (end - start) + " count:" + count);
+        System.out.println("read cost : " + (end - start) + " count:" + count);
     }
 
 

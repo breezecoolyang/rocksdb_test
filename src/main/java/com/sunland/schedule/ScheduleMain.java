@@ -18,7 +18,7 @@ public class ScheduleMain {
         }
 
         System.out.println("args[0] is " + args[0]);
-        ScheduleStartup startup = new ScheduleStartup(args[0]);
+        ScheduleStartup startup = new ScheduleStartup(args[0], args.length <= 1 ? 0 : Integer.parseInt(args[1]));
         try {
             startup.start();
         } catch (Exception e) {

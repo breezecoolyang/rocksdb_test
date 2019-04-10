@@ -24,9 +24,19 @@ public class ScheduleStartup {
     private int endCount = 20000;
 
 
-    ScheduleStartup(final String configFilePath) {
+    ScheduleStartup(final String configFilePath, final int count) {
         if (StringUtils.isNotBlank(configFilePath)) {
             this.configFilePath = configFilePath;
+        }
+        if (count > 0) {
+            int factor = 1;
+            int totalNumber = count;
+            while (totalNumber >= 10) {
+                totalNumber /= 10;
+                factor *= 10;
+            }
+            this.startCount =  factor;
+            this.endCount = this.startCount + count;
         }
     }
 

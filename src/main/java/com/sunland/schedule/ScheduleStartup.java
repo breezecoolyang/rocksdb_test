@@ -2,6 +2,7 @@ package com.sunland.schedule;
 
 import com.sunland.schedule.db.CFManager;
 import com.sunland.schedule.db.RDB;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.rocksdb.ColumnFamilyHandle;
@@ -96,13 +97,19 @@ public class ScheduleStartup {
 
     }
 
+    public String getRandomStr() {
+
+        return RandomStringUtils.randomAlphanumeric(1000);
+
+    }
+
     public void writeData() {
         WriteBatch wb = new WriteBatch();
         ColumnFamilyHandle cfHandle = CFManager.CFH_DEFAULT;
 
         long start = System.currentTimeMillis();
         for (int i = startCount; i < endCount; i++) {
-            wb.put(cfHandle, ("1324356527-" + i + "-5-5-345-356-234-232").getBytes(), "tasdfasdgasdfestfordb".getBytes());
+            wb.put(cfHandle, ("1324356527-" + i + "-5-5-345-356-234-232").getBytes(), getRandomStr().getBytes());
 
             if(i % 30 == 0) {
                 RDB.writeAsync(wb);
@@ -114,7 +121,7 @@ public class ScheduleStartup {
 
         start = System.currentTimeMillis();
         for (int i = startCount; i < endCount; i++) {
-            wb.put(cfHandle, ("1324356525-" + i + "-5-5-345-356-234-232").getBytes(), "tasdfasdgasdfestfordb".getBytes());
+            wb.put(cfHandle, ("1324356525-" + i + "-5-5-345-356-234-232").getBytes(), getRandomStr().getBytes());
 
             if(i % 30 == 0) {
                 RDB.writeAsync(wb);
@@ -126,7 +133,7 @@ public class ScheduleStartup {
 
         start = System.currentTimeMillis();
         for (int i = startCount; i < endCount; i++) {
-            wb.put(cfHandle, ("1324356529-" + i + "-5-5-345-356-234-232").getBytes(), "tasdfasdgasdfestfordb".getBytes());
+            wb.put(cfHandle, ("1324356529-" + i + "-5-5-345-356-234-232").getBytes(), getRandomStr().getBytes());
 
             if(i % 30 == 0) {
                 RDB.writeAsync(wb);

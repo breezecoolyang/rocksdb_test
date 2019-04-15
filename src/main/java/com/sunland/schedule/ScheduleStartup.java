@@ -36,7 +36,7 @@ public class ScheduleStartup {
                 totalNumber /= 10;
                 factor *= 10;
             }
-            this.startCount =  factor;
+            this.startCount = factor;
             this.endCount = this.startCount + count;
         }
     }
@@ -107,11 +107,13 @@ public class ScheduleStartup {
         WriteBatch wb = new WriteBatch();
         ColumnFamilyHandle cfHandle = CFManager.CFH_DEFAULT;
 
+        String str = getRandomStr();
+
         long start = System.currentTimeMillis();
         for (int i = startCount; i < endCount; i++) {
-            wb.put(cfHandle, ("1324356527-" + i + "-5-5-345-356-234-232").getBytes(), getRandomStr().getBytes());
+            wb.put(cfHandle, ("1324356527-" + i + "-5-5-345-356-234-232").getBytes(), str.getBytes());
 
-            if(i % 30 == 0) {
+            if (i % 30 == 0) {
                 RDB.writeAsync(wb);
                 wb.clear();
             }
@@ -119,11 +121,12 @@ public class ScheduleStartup {
         long end = System.currentTimeMillis();
         System.out.println("write cost : " + (end - start) + " count:" + (endCount - startCount));
 
+        str = getRandomStr();
         start = System.currentTimeMillis();
         for (int i = startCount; i < endCount; i++) {
-            wb.put(cfHandle, ("1324356525-" + i + "-5-5-345-356-234-232").getBytes(), getRandomStr().getBytes());
+            wb.put(cfHandle, ("1324356525-" + i + "-5-5-345-356-234-232").getBytes(), str.getBytes());
 
-            if(i % 30 == 0) {
+            if (i % 30 == 0) {
                 RDB.writeAsync(wb);
                 wb.clear();
             }
@@ -131,11 +134,12 @@ public class ScheduleStartup {
         end = System.currentTimeMillis();
         System.out.println("write cost : " + (end - start) + " count:" + (endCount - startCount));
 
+        str = getRandomStr();
         start = System.currentTimeMillis();
         for (int i = startCount; i < endCount; i++) {
-            wb.put(cfHandle, ("1324356529-" + i + "-5-5-345-356-234-232").getBytes(), getRandomStr().getBytes());
+            wb.put(cfHandle, ("1324356529-" + i + "-5-5-345-356-234-232").getBytes(), str.getBytes());
 
-            if(i % 30 == 0) {
+            if (i % 30 == 0) {
                 RDB.writeAsync(wb);
                 wb.clear();
             }
